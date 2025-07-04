@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YouTube Downloader</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <h1>Youtube video downloader</h1>
+    <input type="text" id="url" placeholder="Enter URL" />
+    <select id="format">
+      <option value="mp4">MP4</option>
+      <option value="mp3">MP3</option>
+    </select>
+    <button onclick="downloadVideo()">Download Video</button>
+  </div>
+
+  <script>
+    async function downloadVideo() {
+      const url = document.getElementById("url").value.trim();
+      const format = document.getElementById("format").value;
+  
+      if (!url) {
+        alert("Please enter a YouTube URL");
+        return;
+      }
+  
+      try {
+        const res = await fetch("/download", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url, format }),
+        });
+  
+        if (!res.ok) {
+          const err = await res.json();
+          alert("Error: " + err.error);
+          return;
+        }
+  
+        const blob = await res.blob();
+        const a = document.createElement("a");
+        a.href = window.URL.createObjectURL(blob);
+        a.download = `youtube_video.${format}`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+  
+      } catch (e) {
+        alert("Failed to download video: " + e.message);
+      }
+    }
+  </script>
+  
+</body>
+</html>

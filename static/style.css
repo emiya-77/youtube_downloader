@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: #282c34;
+    color: white;
+  }
+  
+  .container {
+    background: #3c3f58;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    width: 320px;
+  }
+  
+  input, select, button {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: none;
+  }
+  
+  button {
+    background-color: #61dafb;
+    color: #282c34;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #21a1f1;
+  }
+  
